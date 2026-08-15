@@ -48,6 +48,7 @@ def delete_upload(fname):
 
 app = Flask(__name__)
 app.config.update(
+    PREFERRED_URL_SCHEME='https',
 )
 app.register_blueprint(portal_bp)
 app.secret_key = os.environ.get('SECRET_KEY') or os.urandom(32)
@@ -172,8 +173,8 @@ def fetch_weather(location):
 @app.context_processor
 def inject_settings():
     return {
-        'site_title': get_setting('site_title', 'Homeopati Blog'),
-        'site_description': get_setting('site_description', 'Doğal İyileşme Yolculuğu'),
+        'site_title': get_setting('site_title', 'Zafer KARACA'),
+        'site_description': get_setting('site_description', 'Bağlantıları gör · Keşfet · Her haline izin ver'),
         'primary_color': get_setting('primary_color', '#3d6b4f'),
         'secondary_color': get_setting('secondary_color', '#2d4f3a'),
         'bg_color': get_setting('bg_color', '#ffffff'),
@@ -711,8 +712,8 @@ def admin_settings():
         flash('Ayarlar kaydedildi.', 'success')
         return redirect(url_for('admin_settings'))
     return render_template('admin/settings.html',
-        site_title_val=get_setting('site_title', 'Homeopati Blog'),
-        site_description_val=get_setting('site_description', 'Doğal İyileşme Yolculuğu'),
+        site_title_val=get_setting('site_title', 'Zafer KARACA'),
+        site_description_val=get_setting('site_description', 'Bağlantıları gör · Keşfet · Her haline izin ver'),
         primary_color_val=get_setting('primary_color', '#3d6b4f'),
         secondary_color_val=get_setting('secondary_color', '#2d4f3a'),
         bg_color_val=get_setting('bg_color', '#ffffff'),
@@ -1217,7 +1218,9 @@ def theme_css():
 
 /* ---- admin ozel css (custom_css) ---- */
 {custom}'''
-    return Response(css, mimetype='text/css')
+    resp = Response(css, mimetype='text/css')
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    return resp
 
 @app.route('/static/<path:path>')
 def static_files(path):

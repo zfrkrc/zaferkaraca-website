@@ -85,8 +85,8 @@ def init_db():
             conn.execute('INSERT INTO categories (name, slug, sort_order) VALUES (?, ?, ?)',
                          (name, slug, i))
     defaults = [
-        ('site_title', 'Homeopati Blog'),
-        ('site_description', 'Doğal İyileşme Yolculuğu'),
+        ('site_title', 'Zafer KARACA'),
+        ('site_description', 'Bağlantıları gör · Keşfet · Her haline izin ver'),
         ('primary_color', '#3d6b4f'),
         ('secondary_color', '#2d4f3a'),
         ('bg_color', '#ffffff'),
