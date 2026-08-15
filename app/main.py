@@ -1037,7 +1037,12 @@ def sitemap_xml():
     urls = [
         (f'{base}/', ''),
         (f'{base}/about', ''),
+        (f'{base}/blog', ''),
         (f'{base}/gallery', ''),
+        (f'{base}/iletisim', ''),
+        (f'{base}/anlati', ''),
+        (f'{base}/s/yaklasimim', ''),
+        (f'{base}/s/danismanlik', ''),
     ]
     for p in posts:
         lastmod = (p['updated_at'] or '')[:10]
@@ -1050,6 +1055,38 @@ def sitemap_xml():
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
            + ''.join(items) + '</urlset>')
     return Response(xml, mimetype='application/xml')
+
+
+@app.route('/rss.xml')
+def rss_feed():
+    from flask import Response
+    base = request.url_root.rstrip('/')
+    posts, _ = get_posts(page=1, per_page=50)
+    items = []
+    for p in posts:
+        link = f'{base}/post/{p["slug"]}'
+        pub = p['created_at'] or ''
+        items.append(
+            '<item>'
+            f'<title>{_escape_xml(p["title"])}</title>'
+            f'<link>{link}</link>'
+            f'<guid>{link}</guid>'
+            f'<description>{_escape_xml(p.get("excerpt") or "")}</description>'
+            f'<pubDate>{pub}</pubDate>'
+            '</item>'
+        )
+    rss = ('<?xml version="1.0" encoding="UTF-8"?>'
+           '<rss version="2.0"><channel>'
+           f'<title>{_escape_xml(get_setting("site_title", "Zafer KARACA"))}</title>'
+           f'<link>{base}/</link>'
+           f'<description>{_escape_xml(get_setting("site_description", ""))}</description>'
+           '<language>tr</language>'
+           + ''.join(items) + '</channel></rss>')
+    return Response(rss, mimetype='application/rss+xml')
+
+
+def _escape_xml(s):
+    return (s or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
 
 @app.route('/theme.css')
 def theme_css():

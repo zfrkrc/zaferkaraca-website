@@ -6,6 +6,7 @@
   <meta name="description" content="{% block meta_description %}{{ site_description }}{% endblock %}">
   <title>{% block title %}{{ site_title }}{% endblock %}</title>
   <link rel="canonical" href="{{ request.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site_title }}" href="{{ url_for('rss_feed') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
