@@ -165,6 +165,32 @@
       </div>
     </section>
 
+    {% elif b.type == 'stage' %}
+    <!-- pin'lenen yaklaşım (Novocura stage-section, 4 istasyon) -->
+    <section class="stage-intro">
+      {% if b.badge %}<span class="kicker">{{ b.badge }}</span>{% endif %}
+      {% if b.title %}<h2>{{ b.title }}</h2>{% endif %}
+      <div class="hairline"></div>
+      <div class="hint">yavaşça kaydırın</div>
+    </section>
+    <section class="stage-section" id="stageSection">
+      <div class="stage-pin">
+        <svg class="journey-path" aria-hidden="true"><path class="jline" d=""/></svg>
+        {% for c in b.cards %}
+        <div class="jstep js{{ loop.index }} {{ 'tx-r' if loop.index % 2 == 1 else 'tx-l' }}">
+          <div class="jbadge"><span>{{ loop.index }}</span></div>
+          <div class="jtext">
+            <div class="num">{{ c.num or ('Adım ' + loop.index|string) }}</div>
+            <h3>{{ c.title }}</h3>
+            <p>{{ c.body }}</p>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="progress-label">İlerleme</div>
+        <div class="progress"><div class="bar" id="progressBar"></div></div>
+      </div>
+    </section>
+
     {% elif b.type == 'contact_form' %}
     <section class="builder-section {{ b_anim }}" style="padding:var(--space-lg) 0; {{ b_css }}">
       <div class="container" style="max-width:620px;">
