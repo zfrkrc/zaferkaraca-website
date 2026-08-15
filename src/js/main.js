@@ -117,12 +117,12 @@ window.addEventListener('scroll', () => {
 
 // ── PIN'LENEN BÜTÜNSEL YAKLAŞIM (Novocura ScrollTrigger) ──
 (function () {
+  const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (rm) return; // pin ve timeline kurma; 4 adım normal akışta alt alta okunur
+
   if (!(window.gsap && window.ScrollTrigger)) return;
   const stageSection = document.getElementById('stageSection');
   if (!stageSection) return;
-
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) return; // pin ve timeline kurma; içerik statik yığın olarak okunur
 
   gsap.registerPlugin(ScrollTrigger);
   document.body.classList.add('anim');
@@ -133,7 +133,6 @@ window.addEventListener('scroll', () => {
 
   function buildJourneyPath() {
     const w = jsvg.clientWidth, h = jsvg.clientHeight;
-    // dikey çizgi ekranın ortasında
     const x = w * 0.5;
     const d = `M ${x.toFixed(1)} ${(-h * 0.06).toFixed(1)} L ${x.toFixed(1)} ${(h * 1.06).toFixed(1)}`;
     jsvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
@@ -143,6 +142,10 @@ window.addEventListener('scroll', () => {
     jpath.style.strokeDashoffset = jlen;
   }
   buildJourneyPath();
+
+  // başlangıçta tüm istasyonlar gizli
+  gsap.set('.jstep .jbadge', { opacity: 0, scale: 0.3 });
+  gsap.set('.jstep .jtext', { opacity: 0, y: 16 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -160,18 +163,18 @@ window.addEventListener('scroll', () => {
     jresize = setTimeout(() => { buildJourneyPath(); tl.invalidate(); ScrollTrigger.refresh(); }, 250);
   });
 
-  // 4 adıma eşit dağılım (toplam 10 birim → her adım ~%25).
-  // Adım N, N+1 girmeden hemen önce söner; aynı anda tek adım görünür.
-  const stationAt = [1.5, 4.0, 6.5, 9.0];
+  // 4 adım: ilk adım pin %0'ında görünür, her adım ~%25 pay alır.
+  // Adım N, N+1 girmeden hemen önce söner → aynı anda tek adım görünür.
+  const stationAt = [0.1, 2.7, 5.2, 7.8];
   gsap.utils.toArray('.jstep').forEach((step, i) => {
     const badge = step.querySelector('.jbadge');
     const text = step.querySelector('.jtext');
     const enter = stationAt[i];
-    const exit = (i < stationAt.length - 1) ? stationAt[i + 1] - 0.5 : 10;
-    tl.fromTo(badge, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2.2)' }, enter);
-    tl.to(badge, { opacity: 0, scale: 0.6, duration: 0.4, ease: 'power1.in' }, exit);
-    tl.fromTo(text, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, enter + 0.3);
-    tl.to(text, { opacity: 0, duration: 0.4, ease: 'power1.in' }, exit);
+    const exit = (i < stationAt.length - 1) ? stationAt[i + 1] - 0.4 : 10.2;
+    tl.to(badge, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2.2)' }, enter);
+    tl.to(badge, { opacity: 0, scale: 0.6, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
+    tl.to(text, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, enter + 0.2);
+    tl.to(text, { opacity: 0, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
   });
-  tl.to({}, { duration: 1.0 }, 10);
+  tl.to({}, { duration: 0.5 }, 10.5);
 })();

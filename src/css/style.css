@@ -1164,34 +1164,35 @@ body.anim svg.journey-path { display: block; position: absolute; inset: 0; width
 svg.journey-path path { fill: none; stroke: var(--ed-dark); stroke-width: 1.6; stroke-linecap: round; opacity: .5; }
 
 /* numaralı istasyonlar */
-body.anim .jstep { position: absolute; display: flex; align-items: center; gap: 32px; z-index: 2; }
+body.anim .jstep { position: absolute; display: flex; align-items: center; gap: clamp(18px, 2.5vw, 32px); z-index: 2; }
 .jbadge {
-  width: 76px; height: 76px; border-radius: 50%; background: var(--accent-bright); flex: none;
+  width: clamp(52px, 8vh, 72px); height: clamp(52px, 8vh, 72px); border-radius: 50%;
+  background: var(--accent-bright); flex: none;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 10px 30px rgba(44, 74, 59, .18);
 }
 body.anim .jbadge { opacity: 0; }
 .jbadge span {
-  font-family: var(--font-display); font-weight: 500; font-size: 36px;
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 4vh, 34px);
   color: var(--ed-bg); line-height: 1; padding-top: 3px; font-variant-numeric: lining-nums;
 }
 body.anim .jtext { flex: 1; min-width: 0; max-width: 46ch; opacity: 0; }
 .jtext .num {
   font-family: var(--font-display); font-size: 14px; letter-spacing: 3px; color: var(--accent);
-  margin-bottom: 10px; font-variant-numeric: lining-nums;
+  margin-bottom: 8px; font-variant-numeric: lining-nums;
 }
-.jtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(22px, 2vw, 28px); color: var(--ed-dark); margin-bottom: 12px; line-height: 1.18; }
-.jtext p { font-size: 15px; line-height: 1.8; color: var(--ed-ink); }
+.jtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 2.4vh, 28px); color: var(--ed-dark); margin-bottom: 8px; line-height: 1.15; }
+.jtext p { font-size: clamp(12px, 1.7vh, 15px); line-height: 1.6; color: var(--ed-ink); }
 
 /* istasyon yerleşimi — çizgi ortada, adımlar SOL-SAĞ-SOL-SAĞ */
 body.anim .js1, body.anim .js3 { left: 5vw; width: calc(50% - 5vw - 44px); flex-direction: row-reverse; }
-body.anim .js1 .jtext, body.anim .js3 .jtext { text-align: right; }
+body.anim .js1 .jtext, body.anim .js3 .jtext { text-align: left; }
 body.anim .js2, body.anim .js4 { right: 5vw; width: calc(50% - 5vw - 44px); flex-direction: row; }
 body.anim .js2 .jtext, body.anim .js4 .jtext { text-align: left; }
-body.anim .js1 { top: 14%; }
-body.anim .js2 { top: 37%; }
-body.anim .js3 { top: 60%; }
-body.anim .js4 { top: 83%; }
+body.anim .js1 { top: 12%; }
+body.anim .js2 { top: 34%; }
+body.anim .js3 { top: 56%; }
+body.anim .js4 { top: 78%; }
 
 body.anim .progress { display: block; position: absolute; left: 6vw; bottom: 8vh; width: 180px; height: 1px; background: var(--ed-bg-deep); }
 .progress .bar { height: 100%; width: 0%; background: var(--accent-bright); }
