@@ -1105,7 +1105,7 @@ def theme_css():
   --dark-soft: #1B2E23;    --dark-soft-rgb: 27,46,35;   /* forest-deep */
   --ink: #3A4A40;          --ink-rgb: 58,74,64;         /* govde */
   --ink-soft: #4E5E54;     --ink-soft-rgb: 78,94,84;    /* ikincil (kontrast düzeltilmis) */
-  --muted: #6B7B6F;        --muted-rgb: 107,123,111;
+  --muted: #55625A;        --muted-rgb: 85,98,90;       /* AA 5.4:1 */
   --on-dark: #F6F1E7;      --on-dark-rgb: 246,241,231;
   --on-dark-muted: #C7D0BE; --on-dark-muted-rgb: 199,208,190;
   --accent: #7A5C35;       /* metin ve link (AA >= 4.5) */  --accent-rgb: 122,92,53;
@@ -1154,7 +1154,7 @@ def theme_css():
   --dark-soft: #1B2E23;    --dark-soft-rgb: 27,46,35;
   --ink: #F6F1E7;          --ink-rgb: 246,241,231;
   --ink-soft: #C7D0BE;     --ink-soft-rgb: 199,208,190;
-  --muted: #A9B3A6;        --muted-rgb: 169,179,166;
+  --muted: #B9C2B6;        --muted-rgb: 185,194,182;    /* koyu zemin AA */
   --on-dark: #F6F1E7;      --on-dark-rgb: 246,241,231;
   --on-dark-muted: #C7D0BE; --on-dark-muted-rgb: 199,208,190;
   --accent: #D8BC84;    /* koyu zeminde AA metin vurgusu */  --accent-rgb: 216,188,132;
