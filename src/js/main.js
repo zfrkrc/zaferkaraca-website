@@ -165,7 +165,7 @@ window.addEventListener('scroll', () => {
 
   // 4 adım: ilk adım pin %0'ında görünür, her adım ~%25 pay alır.
   // Adım N, N+1 girmeden hemen önce söner → aynı anda tek adım görünür.
-  const stationAt = [0.1, 2.7, 5.2, 7.8];
+  const stationAt = [0, 2.6, 5.1, 7.6];
   gsap.utils.toArray('.jstep').forEach((step, i) => {
     const badge = step.querySelector('.jbadge');
     const text = step.querySelector('.jtext');
