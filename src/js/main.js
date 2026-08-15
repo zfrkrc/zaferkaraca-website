@@ -1,5 +1,8 @@
 /* Zafer KARACA · Hayatı Okuma — editorial scripts (legacy uyumlu) */
 
+// JS aktif işareti — .reveal gizlemesi yalnızca bu sınıf varken uygulanır
+document.documentElement.classList.add('js-ready');
+
 // ── MOBILE NAV ─────────────────────────────────────────
 function toggleNav() {
   const navLinks = document.getElementById('navLinks');
@@ -117,12 +120,11 @@ window.addEventListener('scroll', () => {
   if (!(window.gsap && window.ScrollTrigger)) return;
   const stageSection = document.getElementById('stageSection');
   if (!stageSection) return;
-  gsap.registerPlugin(ScrollTrigger);
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const mobile = window.matchMedia('(max-width: 720px)').matches;
-  if (reduced || mobile) return; // statik yığın kalır; içerik okunur
+  if (reduced) return; // pin ve timeline kurma; içerik statik yığın olarak okunur
 
+  gsap.registerPlugin(ScrollTrigger);
   document.body.classList.add('anim');
 
   const jpath = stageSection.querySelector('.journey-path .jline');
@@ -131,18 +133,9 @@ window.addEventListener('scroll', () => {
 
   function buildJourneyPath() {
     const w = jsvg.clientWidth, h = jsvg.clientHeight;
-    const isNarrow = window.matchMedia('(max-width: 820px)').matches;
-    const pts = isNarrow
-      ? [[0.26, -0.06], [0.20, 0.16], [0.33, 0.38], [0.20, 0.61], [0.33, 0.84], [0.26, 1.06]]
-      : [[0.50, -0.08], [0.38, 0.19], [0.62, 0.40], [0.38, 0.61], [0.62, 0.82], [0.50, 1.08]];
-    const P = pts.map(p => [p[0] * w, p[1] * h]);
-    let d = `M ${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
-    for (let i = 0; i < P.length - 1; i++) {
-      const p0 = P[Math.max(0, i - 1)], p1 = P[i], p2 = P[i + 1], p3 = P[Math.min(P.length - 1, i + 2)];
-      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
-      const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
-      d += ` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
-    }
+    // dikey çizgi ekranın ortasında
+    const x = w * 0.5;
+    const d = `M ${x.toFixed(1)} ${(-h * 0.06).toFixed(1)} L ${x.toFixed(1)} ${(h * 1.06).toFixed(1)}`;
     jsvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
     jpath.setAttribute('d', d);
     jlen = jpath.getTotalLength();
@@ -167,12 +160,18 @@ window.addEventListener('scroll', () => {
     jresize = setTimeout(() => { buildJourneyPath(); tl.invalidate(); ScrollTrigger.refresh(); }, 250);
   });
 
-  const stationAt = [1.9, 4.0, 6.1, 8.2];
+  // 4 adıma eşit dağılım (toplam 10 birim → her adım ~%25).
+  // Adım N, N+1 girmeden hemen önce söner; aynı anda tek adım görünür.
+  const stationAt = [1.5, 4.0, 6.5, 9.0];
   gsap.utils.toArray('.jstep').forEach((step, i) => {
     const badge = step.querySelector('.jbadge');
     const text = step.querySelector('.jtext');
-    tl.fromTo(badge, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2.2)' }, stationAt[i]);
-    tl.fromTo(text, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, stationAt[i] + 0.3);
+    const enter = stationAt[i];
+    const exit = (i < stationAt.length - 1) ? stationAt[i + 1] - 0.5 : 10;
+    tl.fromTo(badge, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2.2)' }, enter);
+    tl.to(badge, { opacity: 0, scale: 0.6, duration: 0.4, ease: 'power1.in' }, exit);
+    tl.fromTo(text, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, enter + 0.3);
+    tl.to(text, { opacity: 0, duration: 0.4, ease: 'power1.in' }, exit);
   });
   tl.to({}, { duration: 1.0 }, 10);
 })();

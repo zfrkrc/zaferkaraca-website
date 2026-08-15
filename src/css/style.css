@@ -238,9 +238,9 @@ button { font-family: inherit; cursor: pointer; }
   min-height: 92svh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   position: relative;
-  padding: var(--space-xl) var(--gutter) calc(var(--space-lg) + 2rem);
+  padding: clamp(4rem, 10vh, 8rem) var(--gutter) calc(var(--space-lg) + 2rem);
 }
 .hero__inner {
   max-width: var(--container);
@@ -332,7 +332,7 @@ button { font-family: inherit; cursor: pointer; }
 /* index hero has a photographic layer behind */
 .hero--photo {
   min-height: 100svh;
-  justify-content: flex-end;
+  justify-content: center;
   color: var(--ed-ink);
 }
 .hero--photo::before {
@@ -979,7 +979,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ── REVEAL ANIMATIONS ─────────────────────────────────── */
-.reveal {
+/* Gizleme yalnızca JS aktifken uygulanır (.js-ready).
+   JS kapalıysa tüm içerik okunur kalır. */
+.js-ready .reveal {
   opacity: 0;
   transform: translateY(32px);
   transition:
@@ -987,7 +989,7 @@ button { font-family: inherit; cursor: pointer; }
     transform var(--dur-slow) var(--ease-editorial);
   will-change: opacity, transform;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal--line { transform: translateY(0); }
 .reveal--line::before {
   content: '';
@@ -1023,7 +1025,7 @@ button { font-family: inherit; cursor: pointer; }
     transition-duration: 0.01ms !important;
   }
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; }
+  .js-ready .reveal { opacity: 1; transform: none; }
   .hero__scroll .line::after { animation: none; }
 }
 
@@ -1162,7 +1164,7 @@ body.anim svg.journey-path { display: block; position: absolute; inset: 0; width
 svg.journey-path path { fill: none; stroke: var(--ed-dark); stroke-width: 1.6; stroke-linecap: round; opacity: .5; }
 
 /* numaralı istasyonlar */
-body.anim .jstep { display: block; position: absolute; transform: translate(-50%, -50%); z-index: 2; }
+body.anim .jstep { position: absolute; display: flex; align-items: center; gap: 32px; z-index: 2; }
 .jbadge {
   width: 76px; height: 76px; border-radius: 50%; background: var(--accent-bright); flex: none;
   display: flex; align-items: center; justify-content: center;
@@ -1173,40 +1175,41 @@ body.anim .jbadge { opacity: 0; }
   font-family: var(--font-display); font-weight: 500; font-size: 36px;
   color: var(--ed-bg); line-height: 1; padding-top: 3px; font-variant-numeric: lining-nums;
 }
-body.anim .jtext { position: absolute; top: 50%; transform: translateY(-50%); width: 215px; flex: none; opacity: 0; }
-body.anim .jstep.tx-r .jtext { left: calc(100% + 30px); }
-body.anim .jstep.tx-l .jtext { right: calc(100% + 30px); text-align: right; }
+body.anim .jtext { flex: 1; min-width: 0; max-width: 46ch; opacity: 0; }
 .jtext .num {
   font-family: var(--font-display); font-size: 14px; letter-spacing: 3px; color: var(--accent);
   margin-bottom: 10px; font-variant-numeric: lining-nums;
 }
-.jtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(21px, 1.9vw, 27px); color: var(--ed-dark); margin-bottom: 12px; line-height: 1.18; }
-.jtext p { font-size: 13px; line-height: 1.8; color: var(--ed-ink); }
+.jtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(22px, 2vw, 28px); color: var(--ed-dark); margin-bottom: 12px; line-height: 1.18; }
+.jtext p { font-size: 15px; line-height: 1.8; color: var(--ed-ink); }
 
-/* istasyon yerleşimi (4 adım — serpentine ayna) */
-body.anim .js1 { left: 38%; top: 19%; }
-body.anim .js2 { left: 62%; top: 40%; }
-body.anim .js3 { left: 38%; top: 61%; }
-body.anim .js4 { left: 62%; top: 82%; }
-body.anim .js1 .jtext { top: calc(50% + 22px); }
-body.anim .js4 .jtext { top: calc(50% - 22px); }
+/* istasyon yerleşimi — çizgi ortada, adımlar SOL-SAĞ-SOL-SAĞ */
+body.anim .js1, body.anim .js3 { left: 5vw; width: calc(50% - 5vw - 44px); flex-direction: row-reverse; }
+body.anim .js1 .jtext, body.anim .js3 .jtext { text-align: right; }
+body.anim .js2, body.anim .js4 { right: 5vw; width: calc(50% - 5vw - 44px); flex-direction: row; }
+body.anim .js2 .jtext, body.anim .js4 .jtext { text-align: left; }
+body.anim .js1 { top: 14%; }
+body.anim .js2 { top: 37%; }
+body.anim .js3 { top: 60%; }
+body.anim .js4 { top: 83%; }
 
 body.anim .progress { display: block; position: absolute; left: 6vw; bottom: 8vh; width: 180px; height: 1px; background: var(--ed-bg-deep); }
 .progress .bar { height: 100%; width: 0%; background: var(--accent-bright); }
 body.anim .progress-label { display: block; position: absolute; left: 6vw; bottom: calc(8vh + 12px); font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
 
-@media (max-width: 820px) {
-  body.anim .js1 { left: 26%; top: 16%; }
-  body.anim .js2 { left: 26%; top: 38%; }
-  body.anim .js3 { left: 26%; top: 61%; }
-  body.anim .js4 { left: 26%; top: 84%; }
-  body.anim .jstep.js1 .jtext { top: calc(50% + 30px); }
-  body.anim .jstep.js4 .jtext { top: calc(50% - 20px); }
+@media (max-width: 900px) {
+  /* tek sütun: madalyon metnin üstünde */
+  body.anim .js1, body.anim .js2, body.anim .js3, body.anim .js4 { left: 0; right: 0; width: auto; flex-direction: column; align-items: flex-start; gap: 18px; }
+  body.anim .js1 .jtext, body.anim .js3 .jtext { text-align: left; }
+  body.anim .jtext { max-width: 52ch; }
+  body.anim .js1 { top: 12%; }
+  body.anim .js2 { top: 34%; }
+  body.anim .js3 { top: 56%; }
+  body.anim .js4 { top: 78%; }
   .jbadge { width: 56px; height: 56px; }
   .jbadge span { font-size: 26px; }
-  body.anim .jstep.tx-r .jtext, body.anim .jstep.tx-l .jtext { left: calc(100% + 18px); right: auto; top: 50%; transform: translateY(-50%); width: 56vw; text-align: left; }
-  .jtext h3 { font-size: 19px; margin-bottom: 7px; }
-  .jtext p { font-size: 11.5px; line-height: 1.65; }
+  .jtext h3 { font-size: 20px; margin-bottom: 7px; }
+  .jtext p { font-size: 13.5px; line-height: 1.65; }
   .jtext .num { font-size: 12px; margin-bottom: 6px; }
   body.anim .progress-label { display: none; }
   body.anim .progress { left: 5vw; bottom: 6vh; }

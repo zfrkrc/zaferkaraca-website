@@ -1117,8 +1117,8 @@ def theme_css():
   --line-soft: rgba(58, 74, 64, 0.08);
 
   /* TYPOGRAPHY */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Inter", "Source Sans 3", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
   --step--1: clamp(.875rem, .83rem + .2vw, .95rem);
   --step-0: clamp(1.0625rem, 1rem + .25vw, 1.15rem);
   --step-1: clamp(1.3rem, 1.15rem + .6vw, 1.6rem);
