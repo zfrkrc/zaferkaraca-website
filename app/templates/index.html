@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}{{ site_title }} | {{ site_description }}{% endblock %}
+{% block content %}
+
+<!-- Anasayfa — sadece burada Gemini arka plan -->
+<style>body{background:url('/uploads/background.png') no-repeat center fixed!important;background-size:cover!important}</style>
+
+<!-- Homepage Hero -->
+<section class="hero-visual">
+  <div class="hero-visual__mobile">
+    <h1>Hayatı Okuma</h1>
+    <p>Bağlantıları gör.<br>Keşfet.<br>Her haline izin ver.</p>
+    <a href="/anlati">Birlikte Keşfedelim</a>
+  </div>
+
+  <div class="hero-visual__frame" style="background:transparent;box-shadow:none;border-radius:0;overflow:visible">
+    <div class="hero-visual__overlay" style="position:static;left:auto;top:auto;width:100%;padding:60px 20px 40px;text-align:center">
+      <div class="hero-visual__title" style="color:#202b22;text-shadow:0 2px 20px rgba(244,239,225,0.7)">Hayatı Okuma</div>
+      <div class="hero-visual__slogan" style="color:#39473b;text-shadow:0 2px 18px rgba(244,239,225,0.7)">
+        Bağlantıları gör.<br>
+        Keşfet.<br>
+        Her haline izin ver.
+      </div>
+      <div style="margin-top:30px">
+        <a class="hero-visual__cta" href="/anlati" style="position:static;left:auto;bottom:auto;transform:none">Birlikte Keşfedelim</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bütünsel Yaklaşım (Three Adım Block) matching brand designs -->
+<section style="padding: 76px 0 64px; text-align: center; border-bottom: 1px solid var(--line,#dcd4bd); background: rgba(244,239,225,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
+  <div class="container">
+    <h2 style="font-family: var(--font-heading); font-size: 32px; color: var(--ink,#202b22); margin-bottom: 12px; font-weight: 600;">Bütünsel Yaklaşım</h2>
+    <div style="font-family: monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--gold,#b08d57); text-transform: uppercase; margin-bottom: 50px;">Bağlantıları gör · Keşfet · Her haline izin ver</div>
+    
+    <div class="steps-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; text-align: left;">
+      <div style="background: var(--paper-2,#fffdf7); border: 1px solid var(--line,#dcd4bd); border-radius: var(--card-radius, 14px); padding: 36px 28px; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform=''; this.style.boxShadow='var(--shadow-sm)';">
+        <div style="font-family: monospace; font-size: 11px; color: var(--gold,#b08d57); font-weight: bold; margin-bottom: 14px; letter-spacing: 0.1em;">ADIM I</div>
+        <h3 style="font-family: var(--font-heading); font-size: 21px; color: var(--ink,#202b22); margin-bottom: 12px; font-weight: 600;">Bağlantıları Gör</h3>
+        <p style="font-size: 14.5px; color: var(--muted,#726f5e); line-height: 1.7;">İnsan hayatını yalnızca tek tek semptomlardan değil; semptomlar, olaylar, duygular, ilişkiler ve yaşam hikâyesi arasındaki bağlantılardan oluşan bir bütün olarak görmek.</p>
+      </div>
+      <div style="background: var(--paper-2,#fffdf7); border: 1px solid var(--line,#dcd4bd); border-radius: var(--card-radius, 14px); padding: 36px 28px; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform=''; this.style.boxShadow='var(--shadow-sm)';">
+        <div style="font-family: monospace; font-size: 11px; color: var(--gold,#b08d57); font-weight: bold; margin-bottom: 14px; letter-spacing: 0.1em;">ADIM II</div>
+        <h3 style="font-family: var(--font-heading); font-size: 21px; color: var(--ink,#202b22); margin-bottom: 12px; font-weight: 600;">Keşfet</h3>
+        <p style="font-size: 14.5px; color: var(--muted,#726f5e); line-height: 1.7;">Karşımdaki kişiyi düzeltmek veya onun adına bir sonuç vaat etmek yerine; kendisini ve yaşam döngülerini yargısızca keşfetmesine alan açmak.</p>
+      </div>
+      <div style="background: var(--paper-2,#fffdf7); border: 1px solid var(--line,#dcd4bd); border-radius: var(--card-radius, 14px); padding: 36px 28px; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform=''; this.style.boxShadow='var(--shadow-sm)';">
+        <div style="font-family: monospace; font-size: 11px; color: var(--gold,#b08d57); font-weight: bold; margin-bottom: 14px; letter-spacing: 0.1em;">ADIM III</div>
+        <h3 style="font-family: var(--font-heading); font-size: 21px; color: var(--ink,#202b22); margin-bottom: 12px; font-weight: 600;">Her Haline İzin Ver</h3>
+        <p style="font-size: 14.5px; color: var(--muted,#726f5e); line-height: 1.7;">Acele etmeden, sakinlikle ve merhametle yaklaşarak; kişinin beden, zihin ve ruh bütünlüğündeki tüm hallerine güvenle alan açmak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Personal Bio Teaser Section -->
+<section style="padding: 80px 0; background: var(--paper-2,#fffdf7); border-bottom: 1px solid var(--line,#dcd4bd);">
+  <div class="container" style="display:grid; grid-template-columns: 1fr; gap: 40px; align-items: center;">
+    <style>
+      @media (min-width: 768px) {
+        .about-teaser-grid { grid-template-columns: 280px 1fr !important; }
+      }
+    </style>
+    <div class="about-teaser-grid" style="display:grid; grid-template-columns: 1fr; gap: 40px;">
+      <div style="text-align:center;">
+        <img src="/uploads/logoaq.png" alt="Zafer KARACA" style="width: 180px; height: 180px; border-radius: 50%; border: 1px solid var(--line,#dcd4bd); box-shadow: var(--shadow-sm); object-fit: contain;">
+      </div>
+      <div>
+        <h2 style="font-family: var(--font-heading); font-size: 32px; color: var(--ink,#202b22); margin-bottom: 16px;">Ben Zafer KARACA</h2>
+        <div style="font-family: monospace; font-size: 11px; color: var(--gold,#b08d57); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px;">Hayatı Okuma Niyetiyle</div>
+        <p style="font-size: 16px; line-height: 1.8; color: var(--ink-2,#39473b); margin-bottom: 24px;">
+          Yıllarca hizmet ve turizm sektöründe operasyon müdürlüğü yaptıktan sonra, hayatıma özel gereksinimli bir evladın gelişi benim dönüm noktam oldu. 
+          Bu uyanış beni bütünsel bakış açısı eğitimlerine getirdi. Bugün, insanı sadece semptomlarıyla değil; beden, zihin ve ruh bütünlüğündeki tüm hikayesiyle dinlediğim "Hayatı Okuma" alanını sunuyorum.
+        </p>
+        <a href="/about" style="color: var(--primary,#74906f); font-weight: 600; text-decoration: none; font-size: 15px;">Yolumun Hikayesini Oku →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Posts Teaser Section -->
+<section style="padding: 80px 0; background: rgba(244,239,225,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--line,#dcd4bd);">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; flex-wrap:wrap; gap:16px;">
+      <div>
+        <h2 style="font-family: var(--font-heading); font-size: 32px; color: var(--ink,#202b22); margin-bottom: 8px;">Son Yazılar</h2>
+        <p style="font-size: 14.5px; color: var(--muted,#726f5e); margin:0;">Hayatı Okuma ve bütünsel yaşam felsefesi üzerine düşünceler.</p>
+      </div>
+      <a href="/blog" style="color: var(--gold,#b08d57); font-weight: 600; text-decoration: none; font-size: 14.5px;">Tüm Yazıları Gör →</a>
+    </div>
+
+    {% if posts %}
+    <div class="post-grid" style="padding-top: 0; padding-bottom: 20px;">
+      {% for post in posts[:3] %}
+      <a href="{{ url_for('post', slug=post.slug) }}" class="post-card reveal visible">
+        <div class="post-thumb">
+          {% if post.image %}
+          <img src="{{ url_for('uploaded_file', filename=post.image) }}" alt="{{ post.title }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          {% else %}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c4-4 8-7.6 8-12a8 8 0 1 0-16 0c0 4.4 4 8 8 12z"/><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          {% endif %}
+          <span class="post-category">{{ post.category }}</span>
+        </div>
+        <div class="post-body">
+          <div class="post-date">{{ post.created_at[:10] }}</div>
+          <div class="post-title">{{ post.title }}</div>
+          <div class="post-excerpt">{{ post.excerpt }}</div>
+          <div class="post-read">Devamını Oku</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="color:#aaa; text-align:center;">Henüz bir blog yazısı bulunmuyor.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

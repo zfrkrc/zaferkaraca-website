@@ -1,0 +1,51 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Panel | {{ site_title }}{% endblock %}
+{% block breadcrumb %}Panel{% endblock %}
+{% block topbar_actions %}<a href="{{ url_for('admin_logout') }}" class="topbar-btn">🚪 Çıkış</a>{% endblock %}
+{% block head %}
+<style>
+.stats{display:flex;gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;padding:20px;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.05);flex:1;text-align:center}
+.stat-card .num{font-size:28px;font-weight:700;color:#3d6b4f}
+.stat-card .lbl{font-size:12px;color:#888;margin-top:4px}
+table{width:100%;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+th,td{padding:12px 16px;text-align:left;font-size:13px}
+th{background:#f8fafb;color:#666;font-weight:600}
+tr:not(:last-child) td{border-bottom:1px solid #f0f0f0}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:500}
+.badge-green{background:#e8f5e9;color:#2e7d32}
+.badge-gray{background:#f5f5f5;color:#888}
+.empty{text-align:center;padding:60px 20px;color:#888;font-size:14px}
+</style>
+{% endblock %}
+{% block content %}
+<div class="stats">
+  <div class="stat-card"><div class="num">{{ total }}</div><div class="lbl">Toplam Yazı</div></div>
+  <div class="stat-card"><div class="num">{{ posts|selectattr('published','equalto',1)|list|length }}</div><div class="lbl">Yayında</div></div>
+  <div class="stat-card"><div class="num">{{ posts|rejectattr('published','equalto',1)|list|length }}</div><div class="lbl">Taslak</div></div>
+</div>
+
+{% if posts %}
+<table>
+  <thead><tr><th>Başlık</th><th>Kategori</th><th>Durum</th><th>Tarih</th><th>İşlem</th></tr></thead>
+  <tbody>
+    {% for post in posts %}
+    <tr>
+      <td><a href="{{ url_for('post', slug=post.slug) }}" target="_blank" style="color:#3d6b4f;text-decoration:none">{{ post.title }}</a></td>
+      <td>{{ post.category }}</td>
+      <td>{% if post.published %}<span class="badge badge-green">Yayında</span>{% else %}<span class="badge badge-gray">Taslak</span>{% endif %}</td>
+      <td>{{ post.created_at[:10] }}</td>
+      <td>
+        <a href="{{ url_for('admin_post_edit', id=post.id) }}" class="btn btn-muted" style="padding:4px 10px;font-size:11px">✏️</a>
+        <form method="POST" action="{{ url_for('admin_post_delete', id=post.id) }}" style="display:inline" onsubmit="return confirm('Emin misin?')">
+          <button class="btn btn-muted" style="padding:4px 10px;font-size:11px;color:#c62828">🗑️</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">Henüz hiç yazı yok. <a href="{{ url_for('admin_post_new') }}" style="color:#3d6b4f">İlk yazını ekle!</a></div>
+{% endif %}
+{% endblock %}

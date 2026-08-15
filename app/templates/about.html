@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ about_title or 'Hakkımda' }} | {{ site_title }}{% endblock %}
+{% block content %}
+<style>
+  .brand-about-container {
+    padding: 80px 0 100px;
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  .brand-bio h1 {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    color: var(--ink, #202b22);
+    margin-bottom: 28px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+  .brand-bio-content {
+    font-size: 16.5px;
+    line-height: 1.9;
+    color: var(--ink-2, #39473b);
+    white-space: pre-line;
+  }
+</style>
+
+<div class="brand-about-container container reveal visible">
+  <div class="brand-bio">
+    <h1>{{ about_title or 'Hakkımda' }}</h1>
+    <div class="brand-bio-content">{{ about_content or '' }}</div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Ana Sayfa Editörü - {{ site_title }}{% endblock %}
+{% block breadcrumb %}Ana Sayfa{% endblock %}
+{% block head %}
+<style>
+.card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:12px}
+input[type=text],textarea,select{width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;font-family:inherit}
+textarea{resize:vertical}
+</style>
+{% endblock %}
+{% block content %}
+<form method="POST">
+  <div id="sections">
+    {% for s in sections %}
+    <div class="card">
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input type="text" name="section_title[]" value="{{ s.title }}" placeholder="Başlık" style="flex:1">
+        <select name="section_type[]">
+          <option value="text" {% if s.type == 'text' %}selected{% endif %}>Metin</option>
+          <option value="hero" {% if s.type == 'hero' %}selected{% endif %}>Hero</option>
+          <option value="cta" {% if s.type == 'cta' %}selected{% endif %}>Harekete Geç</option>
+          <option value="features" {% if s.type == 'features' %}selected{% endif %}>Özellikler</option>
+        </select>
+        <button type="button" onclick="this.parentElement.parentElement.remove()" class="btn btn-muted" style="padding:8px 12px">X</button>
+      </div>
+      <textarea name="section_content[]" rows="3">{{ s.content }}</textarea>
+    </div>
+    {% endfor %}
+  </div>
+  <button type="button" onclick="addSection()" class="btn btn-muted" style="width:100%;padding:8px;border:1px dashed #ccc;margin-bottom:16px">+ Bölüm Ekle</button>
+  <button type="submit" class="btn btn-primary">💾 Kaydet</button>
+  <a href="{{ url_for('admin_dashboard') }}" class="btn btn-muted">İptal</a>
+</form>
+
+<script>
+function addSection() {
+  var d = document.getElementById('sections');
+  var html = '<div class="card"><div style="display:flex;gap:8px;margin-bottom:8px">' +
+    '<input type="text" name="section_title[]" placeholder="Başlık" style="flex:1">' +
+    '<select name="section_type[]"><option value="text">Metin</option><option value="hero">Hero</option><option value="cta">Harekete Geç</option><option value="features">Özellikler</option></select>' +
+    '<button type="button" onclick="this.parentElement.parentElement.remove()" class="btn btn-muted" style="padding:8px 12px">X</button></div>' +
+    '<textarea name="section_content[]" rows="3"></textarea></div>';
+  d.insertAdjacentHTML('beforeend', html);
+}
+</script>
+{% endblock %}

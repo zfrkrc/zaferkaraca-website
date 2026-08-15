@@ -1,0 +1,27 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Müşteri Yönetimi - {{ site_title }}{% endblock %}
+{% block breadcrumb %}Müşteriler{% endblock %}
+{% block topbar_actions %}<a href="/admin/tenants/create" class="topbar-btn">➕ Yeni Müşteri</a>{% endblock %}
+{% block head %}
+<style>
+.empty{text-align:center;padding:40px;color:#888}
+</style>
+{% endblock %}
+{% block content %}
+<div id="tenantList">
+  <p class="empty">Müşteri listesi yükleniyor...</p>
+</div>
+
+<script>
+fetch('http://172.16.16.215:8004/admin/tenants')
+  .then(r => r.text())
+  .then(html => {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(html, 'text/html');
+    var table = doc.querySelector('table');
+    if (table) document.getElementById('tenantList').innerHTML = table.outerHTML;
+    else document.getElementById('tenantList').innerHTML = '<p class="empty">Henüz müşteri yok.</p>';
+  })
+  .catch(e => document.getElementById('tenantList').innerHTML = '<p class="empty">Liste yüklenemedi.</p>');
+</script>
+{% endblock %}

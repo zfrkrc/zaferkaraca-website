@@ -1,0 +1,43 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Kategoriler | {{ site_title }}{% endblock %}
+{% block breadcrumb %}Kategoriler{% endblock %}
+{% block head %}
+<style>
+.card{background:#fff;padding:24px;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:24px}
+.card h2{font-size:16px;margin-bottom:16px}
+.cat-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.cat-item:last-child{border:none}
+.cat-name{font-size:14px;font-weight:500}
+.cat-actions{display:flex;gap:4px}
+input[type=text]{padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;width:250px}
+.add-row{display:flex;gap:8px;margin-bottom:16px}
+.empty{text-align:center;padding:40px;color:#888;font-size:14px}
+</style>
+{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>➕ Yeni Kategori</h2>
+  <form method="POST" action="{{ url_for('admin_category_new') }}" class="add-row">
+    <input type="text" name="name" placeholder="Kategori adı" required autofocus>
+    <button class="btn btn-primary">Ekle</button>
+  </form>
+
+  <h2 style="margin-top:24px">📋 Mevcut Kategoriler</h2>
+  {% for cat in cats %}
+  <div class="cat-item">
+    <span class="cat-name">{{ cat.name }}</span>
+    <div class="cat-actions">
+      <form method="POST" action="{{ url_for('admin_category_edit', id=cat.id) }}" style="display:flex;gap:4px">
+        <input type="text" name="name" value="{{ cat.name }}" required>
+        <button class="btn btn-muted" style="padding:4px 10px;font-size:11px">✏️</button>
+      </form>
+      <form method="POST" action="{{ url_for('admin_category_delete', id=cat.id) }}" onsubmit="return confirm('Emin misin?')" style="display:inline">
+        <button class="btn btn-muted" style="padding:4px 10px;font-size:11px;color:#c62828">🗑️</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <div class="empty">Henüz kategori yok.</div>
+  {% endfor %}
+</div>
+{% endblock %}
