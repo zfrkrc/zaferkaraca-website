@@ -1097,24 +1097,24 @@ def theme_css():
    Tum stil kararlari bu custom property'lerden beslenir; style.css harici
    hardcoded renk/olcu kullanmaz. */
 :root {{
-   /* COLOR */
-  --bg: #F5F1E6;            --bg-rgb: 245,241,230;
+   /* COLOR — Novocura paleti, Zafer --ed-* semasina eslenmis */
+  --bg: #F6F1E7;            --bg-rgb: 246,241,231;      /* parchment */
   --surface: #FBF8F0;      --surface-rgb: 251,248,240;
-  --bg-deep: #EAE3D2;      --bg-deep-rgb: 234,227,210;
-  --dark: #1C2620;         --dark-rgb: 28,38,32;
-  --dark-soft: #26332B;    --dark-soft-rgb: 38,51,43;
-  --ink: #1C2620;          --ink-rgb: 28,38,32;
-  --ink-soft: #37443A;     --ink-soft-rgb: 55,68,58;
-  --muted: #5E5748;        --muted-rgb: 94,87,72;
-  --on-dark: #EDE7D8;      --on-dark-rgb: 237,231,216;
-  --on-dark-muted: #B3AC99; --on-dark-muted-rgb: 179,172,153;
-  --accent: #6F5527;       /* metin ve link (AA >= 4.5) */  --accent-rgb: 111,85,39;
-  --accent-bright: #A8894F;/* SADECE dekor: cizgi, ikon, nokta */  --accent-bright-rgb: 168,137,79;
-  --sage: #5A6B5E;         --sage-rgb: 90,107,94;
+  --bg-deep: #EAE2D0;      --bg-deep-rgb: 234,226,208;  /* sand */
+  --dark: #2C4A3B;         --dark-rgb: 44,74,59;        /* forest */
+  --dark-soft: #1B2E23;    --dark-soft-rgb: 27,46,35;   /* forest-deep */
+  --ink: #3A4A40;          --ink-rgb: 58,74,64;         /* govde */
+  --ink-soft: #4E5E54;     --ink-soft-rgb: 78,94,84;    /* ikincil (kontrast düzeltilmis) */
+  --muted: #6B7B6F;        --muted-rgb: 107,123,111;
+  --on-dark: #F6F1E7;      --on-dark-rgb: 246,241,231;
+  --on-dark-muted: #C7D0BE; --on-dark-muted-rgb: 199,208,190;
+  --accent: #7A5C35;       /* metin ve link (AA >= 4.5) */  --accent-rgb: 122,92,53;
+  --accent-bright: #B08D57;/* brass — SADECE dekor: cizgi, ikon, rozet */  --accent-bright-rgb: 176,141,87;
+  --sage: #C7D0BE;         --sage-rgb: 199,208,190;     /* yumusak dekor */
   --success: #4d7a52;      --success-rgb: 77,122,82;
   --error: #a3403a;        --error-rgb: 163,64,58;
-  --line: rgba(28, 38, 32, 0.14);
-  --line-soft: rgba(28, 38, 32, 0.07);
+  --line: rgba(58, 74, 64, 0.16);
+  --line-soft: rgba(58, 74, 64, 0.08);
 
   /* TYPOGRAPHY */
   --font-display: "Fraunces", Georgia, serif;
@@ -1147,23 +1147,23 @@ def theme_css():
 
 /* ---- DARK MODE (ayni AA esikleri) ---- */
 [data-theme="dark"] {{
-  --bg: #161B16;            --bg-rgb: 22,27,22;
-  --surface: #1C221C;      --surface-rgb: 28,34,28;
-  --bg-deep: #121612;      --bg-deep-rgb: 18,22,18;
-  --dark: #0F130F;         --dark-rgb: 15,19,15;
-  --dark-soft: #1B211B;    --dark-soft-rgb: 27,33,27;
-  --ink: #EDE7D8;          --ink-rgb: 237,231,216;
-  --ink-soft: #D4CEBD;     --ink-soft-rgb: 212,206,189;
-  --muted: #B9B2A0;        --muted-rgb: 185,178,160;
-  --on-dark: #EDE7D8;      --on-dark-rgb: 237,231,216;
-  --on-dark-muted: #B3AC99; --on-dark-muted-rgb: 179,172,153;
-  --accent: #C9AC72;    /* acik zemin tusu ile ayni AA degeri */  --accent-rgb: 201,172,114;
-  --accent-bright: #D8BC84;  --accent-bright-rgb: 216,188,132;
-  --sage: #8FA58F;     --sage-rgb: 143,165,143;
+  --bg: #121A15;            --bg-rgb: 18,26,21;
+  --surface: #1A241D;      --surface-rgb: 26,36,29;
+  --bg-deep: #0E140F;      --bg-deep-rgb: 14,20,15;
+  --dark: #0A0F0B;         --dark-rgb: 10,15,11;
+  --dark-soft: #1B2E23;    --dark-soft-rgb: 27,46,35;
+  --ink: #F6F1E7;          --ink-rgb: 246,241,231;
+  --ink-soft: #C7D0BE;     --ink-soft-rgb: 199,208,190;
+  --muted: #A9B3A6;        --muted-rgb: 169,179,166;
+  --on-dark: #F6F1E7;      --on-dark-rgb: 246,241,231;
+  --on-dark-muted: #C7D0BE; --on-dark-muted-rgb: 199,208,190;
+  --accent: #D8BC84;    /* koyu zeminde AA metin vurgusu */  --accent-rgb: 216,188,132;
+  --accent-bright: #B08D57;  --accent-bright-rgb: 176,141,87;
+  --sage: #C7D0BE;     --sage-rgb: 199,208,190;
   --success: #5ea86a;  --success-rgb: 94,168,106;
   --error: #b35a52;    --error-rgb: 179,90,82;
-  --line: rgba(237, 231, 216, 0.14);
-  --line-soft: rgba(237, 231, 216, 0.07);
+  --line: rgba(246, 241, 231, 0.16);
+  --line-soft: rgba(246, 241, 231, 0.08);
 }}
 
 /* ---- legacy aliases (Jinja template inlinelari + eski style.css)
@@ -1174,7 +1174,7 @@ def theme_css():
   --text: var(--ink);
   --font-heading: var(--font-display);
   --gold: var(--accent-bright);
-  --gold-soft: #E7D9BC;
+  --gold-soft: #EAE2D0;
   --ink-2: var(--ink-soft);
   --paper: var(--bg);
   --paper-2: var(--surface);

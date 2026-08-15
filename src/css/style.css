@@ -16,10 +16,11 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  font-size: var(--fs-body);          /* --step-0 ≈ 17–18px */
+  font-size: 17px;                    /* Novocura govde 17px */
+  font-weight: 300;
   color: var(--ed-ink);
   background: var(--ed-bg);
-  line-height: 1.7;
+  line-height: 1.65;                   /* Novocura govde 1.65 */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -28,12 +29,28 @@ body {
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
-::selection { background: rgba(var(--accent-bright-rgb), .25); }
+::selection { background: var(--sage); color: var(--dark-soft); }
 
 /* focus — görünür, AA; asla outline:none */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* ── NOVOCURA yardımcıları (kicker / hairline) ─────────── */
+.kicker {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--accent);              /* brass metin olarak degil */
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.hairline {
+  width: 64px;
+  height: 1px;
+  background: var(--accent-bright);
+  opacity: .7;
 }
 
 /* ── TYPOGRAPHY ────────────────────────────────────────── */
@@ -47,11 +64,11 @@ button { font-family: inherit; cursor: pointer; }
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.32em;
-  color: var(--ed-accent);
+  letter-spacing: 4px;
+  color: var(--accent);
 }
 
 /* section title area */
@@ -94,7 +111,7 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ── SECTION ───────────────────────────────────────────── */
 .section {
-  padding-block: var(--space-xl);
+  padding-block: 16vh;                 /* Novocura section.block 16vh */
   border-top: 1px solid var(--ed-line);
 }
 .section:first-of-type { border-top: none; }
@@ -1107,9 +1124,107 @@ button { font-family: inherit; cursor: pointer; }
   .pullquote { grid-column: 1 / -1; }
 }
 
+/* ── PIN'LENEN BÜTÜNSEL YAKLAŞIM (Novocura stage-section) ── */
+.stage-intro {
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  padding: 0 6vw;
+}
+.stage-intro h2 { font-size: clamp(32px, 4.4vw, 54px); line-height: 1.16; max-width: 15em; }
+.stage-intro .hint { font-size: 11px; letter-spacing: 2px; color: var(--muted); animation: breathe 3.4s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: .3; } 50% { opacity: .85; } }
+
+.stage-section { position: relative; background: var(--ed-bg); }
+
+/* statik yerleşim (default; editor de bunu görür): sakin dikey yığın */
+.stage-pin {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 10vh 6vw 12vh;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+svg.journey-path { display: none; }
+.jstep { display: flex; align-items: flex-start; gap: 24px; }
+.jtext { flex: 1; min-width: 0; }
+.progress, .progress-label { display: none; }
+
+/* pin'lenen animasyon düzeni (yalnızca animasyon katmanı aktifken) */
+body.anim .stage-pin { height: 100vh; max-width: none; margin: 0; padding: 0; display: block; overflow: hidden; }
+body.anim svg.journey-path { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+svg.journey-path path { fill: none; stroke: var(--ed-dark); stroke-width: 1.6; stroke-linecap: round; opacity: .5; }
+
+/* numaralı istasyonlar */
+body.anim .jstep { display: block; position: absolute; transform: translate(-50%, -50%); z-index: 2; }
+.jbadge {
+  width: 76px; height: 76px; border-radius: 50%; background: var(--accent-bright); flex: none;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px rgba(44, 74, 59, .18);
+}
+body.anim .jbadge { opacity: 0; }
+.jbadge span {
+  font-family: var(--font-display); font-weight: 500; font-size: 36px;
+  color: var(--ed-bg); line-height: 1; padding-top: 3px; font-variant-numeric: lining-nums;
+}
+body.anim .jtext { position: absolute; top: 50%; transform: translateY(-50%); width: 215px; flex: none; opacity: 0; }
+body.anim .jstep.tx-r .jtext { left: calc(100% + 30px); }
+body.anim .jstep.tx-l .jtext { right: calc(100% + 30px); text-align: right; }
+.jtext .num {
+  font-family: var(--font-display); font-size: 14px; letter-spacing: 3px; color: var(--accent);
+  margin-bottom: 10px; font-variant-numeric: lining-nums;
+}
+.jtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(21px, 1.9vw, 27px); color: var(--ed-dark); margin-bottom: 12px; line-height: 1.18; }
+.jtext p { font-size: 13px; line-height: 1.8; color: var(--ed-ink); }
+
+/* istasyon yerleşimi (4 adım — serpentine ayna) */
+body.anim .js1 { left: 38%; top: 19%; }
+body.anim .js2 { left: 62%; top: 40%; }
+body.anim .js3 { left: 38%; top: 61%; }
+body.anim .js4 { left: 62%; top: 82%; }
+body.anim .js1 .jtext { top: calc(50% + 22px); }
+body.anim .js4 .jtext { top: calc(50% - 22px); }
+
+body.anim .progress { display: block; position: absolute; left: 6vw; bottom: 8vh; width: 180px; height: 1px; background: var(--ed-bg-deep); }
+.progress .bar { height: 100%; width: 0%; background: var(--accent-bright); }
+body.anim .progress-label { display: block; position: absolute; left: 6vw; bottom: calc(8vh + 12px); font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+
+@media (max-width: 820px) {
+  body.anim .js1 { left: 26%; top: 16%; }
+  body.anim .js2 { left: 26%; top: 38%; }
+  body.anim .js3 { left: 26%; top: 61%; }
+  body.anim .js4 { left: 26%; top: 84%; }
+  body.anim .jstep.js1 .jtext { top: calc(50% + 30px); }
+  body.anim .jstep.js4 .jtext { top: calc(50% - 20px); }
+  .jbadge { width: 56px; height: 56px; }
+  .jbadge span { font-size: 26px; }
+  body.anim .jstep.tx-r .jtext, body.anim .jstep.tx-l .jtext { left: calc(100% + 18px); right: auto; top: 50%; transform: translateY(-50%); width: 56vw; text-align: left; }
+  .jtext h3 { font-size: 19px; margin-bottom: 7px; }
+  .jtext p { font-size: 11.5px; line-height: 1.65; }
+  .jtext .num { font-size: 12px; margin-bottom: 6px; }
+  body.anim .progress-label { display: none; }
+  body.anim .progress { left: 5vw; bottom: 6vh; }
+}
+@media (max-width: 720px) {
+  .stage-intro { height: auto; min-height: 0; padding: 9vh 6vw 3vh; gap: 12px; }
+  .stage-pin { padding: 2vh 6vw 9vh; gap: 34px; }
+  .jstep { gap: 16px; }
+  .jbadge { width: 44px; height: 44px; }
+  .jbadge span { font-size: 21px; }
+  .jtext h3 { font-size: 18px; margin-bottom: 6px; }
+  .jtext p { font-size: 12px; line-height: 1.6; }
+  .jtext .num { font-size: 11px; margin-bottom: 4px; }
+}
+
+body.anim .reveal { opacity: 0; }
+
 /* ── DARK MODE ─────────────────────────────────────────── */
-/* [data-theme] token geçişleri theme.css'te tanımlı (app/main.py theme_css).
-   Burada ek dark-mode düzeltmeleri yeni token'larla yapılmalı: */
 [data-theme="dark"] .nav { background: var(--dark-soft); }
 [data-theme="dark"] .hero--photo::before {
   background: linear-gradient(180deg, rgba(var(--bg-rgb),0.78) 0%, rgba(var(--bg-rgb),0.3) 34%, rgba(var(--bg-rgb),0.92) 82%);
