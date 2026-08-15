@@ -1071,7 +1071,7 @@ def rss_feed():
             f'<title>{_escape_xml(p["title"])}</title>'
             f'<link>{link}</link>'
             f'<guid>{link}</guid>'
-            f'<description>{_escape_xml(p.get("excerpt") or "")}</description>'
+            f'<description>{_escape_xml(p["excerpt"] or "")}</description>'
             f'<pubDate>{pub}</pubDate>'
             '</item>'
         )
