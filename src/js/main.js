@@ -143,9 +143,11 @@ window.addEventListener('scroll', () => {
   }
   buildJourneyPath();
 
-  // başlangıçta tüm istasyonlar gizli
+  // başlangıçta 2,3,4 istasyon gizli; 1. adım pin başında zaten görünür
   gsap.set('.jstep .jbadge', { opacity: 0, scale: 0.3 });
   gsap.set('.jstep .jtext', { opacity: 0, y: 16 });
+  gsap.set('.js1 .jbadge', { opacity: 1, scale: 1 });
+  gsap.set('.js1 .jtext', { opacity: 1, y: 0 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -163,18 +165,23 @@ window.addEventListener('scroll', () => {
     jresize = setTimeout(() => { buildJourneyPath(); tl.invalidate(); ScrollTrigger.refresh(); }, 250);
   });
 
-  // 4 adım: ilk adım pin %0'ında görünür, her adım ~%25 pay alır.
-  // Adım N, N+1 girmeden hemen önce söner → aynı anda tek adım görünür.
+  // 4 adım: 1. adım pin %0'ında görünür; adım N, N+1 girmeden hemen önce söner.
+  // 1. adım yalnızca fade-out alır (giriş yok), diğerleri giriş + çıkış alır.
   const stationAt = [0, 2.6, 5.1, 7.6];
   gsap.utils.toArray('.jstep').forEach((step, i) => {
     const badge = step.querySelector('.jbadge');
     const text = step.querySelector('.jtext');
-    const enter = stationAt[i];
     const exit = (i < stationAt.length - 1) ? stationAt[i + 1] - 0.4 : 10.2;
-    tl.to(badge, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2.2)' }, enter);
-    tl.to(badge, { opacity: 0, scale: 0.6, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
-    tl.to(text, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, enter + 0.2);
-    tl.to(text, { opacity: 0, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
+    if (i === 0) {
+      tl.to(badge, { opacity: 0, scale: 0.6, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
+      tl.to(text, { opacity: 0, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
+    } else {
+      const enter = stationAt[i];
+      tl.to(badge, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2.2)' }, enter);
+      tl.to(badge, { opacity: 0, scale: 0.6, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
+      tl.to(text, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, enter + 0.2);
+      tl.to(text, { opacity: 0, duration: 0.35, ease: 'power1.in', overwrite: 'auto' }, exit);
+    }
   });
   tl.to({}, { duration: 0.5 }, 10.5);
 })();
