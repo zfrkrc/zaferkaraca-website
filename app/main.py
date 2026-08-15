@@ -1059,20 +1059,22 @@ def theme_css():
    Tum stil kararlari bu custom property'lerden beslenir; style.css harici
    hardcoded renk/olcu kullanmaz. */
 :root {{
-  /* COLOR */
-  --bg: #F5F1E6;
-  --surface: #FBF8F0;
-  --bg-deep: #EAE3D2;
-  --dark: #1C2620;
-  --dark-soft: #26332B;
-  --ink: #1C2620;
-  --ink-soft: #37443A;
-  --muted: #5E5748;
-  --on-dark: #EDE7D8;
-  --on-dark-muted: #B3AC99;
-  --accent: #6F5527;         /* metin ve link (AA >= 4.5) */
-  --accent-bright: #A8894F;  /* SADECE dekor: cizgi, ikon, nokta */
-  --sage: #5A6B5E;
+   /* COLOR */
+  --bg: #F5F1E6;            --bg-rgb: 245,241,230;
+  --surface: #FBF8F0;      --surface-rgb: 251,248,240;
+  --bg-deep: #EAE3D2;      --bg-deep-rgb: 234,227,210;
+  --dark: #1C2620;         --dark-rgb: 28,38,32;
+  --dark-soft: #26332B;    --dark-soft-rgb: 38,51,43;
+  --ink: #1C2620;          --ink-rgb: 28,38,32;
+  --ink-soft: #37443A;     --ink-soft-rgb: 55,68,58;
+  --muted: #5E5748;        --muted-rgb: 94,87,72;
+  --on-dark: #EDE7D8;      --on-dark-rgb: 237,231,216;
+  --on-dark-muted: #B3AC99; --on-dark-muted-rgb: 179,172,153;
+  --accent: #6F5527;       /* metin ve link (AA >= 4.5) */  --accent-rgb: 111,85,39;
+  --accent-bright: #A8894F;/* SADECE dekor: cizgi, ikon, nokta */  --accent-bright-rgb: 168,137,79;
+  --sage: #5A6B5E;         --sage-rgb: 90,107,94;
+  --success: #4d7a52;      --success-rgb: 77,122,82;
+  --error: #a3403a;        --error-rgb: 163,64,58;
   --line: rgba(28, 38, 32, 0.14);
   --line-soft: rgba(28, 38, 32, 0.07);
 
@@ -1107,19 +1109,21 @@ def theme_css():
 
 /* ---- DARK MODE (ayni AA esikleri) ---- */
 [data-theme="dark"] {{
-  --bg: #161B16;
-  --surface: #1C221C;
-  --bg-deep: #121612;
-  --dark: #0F130F;
-  --dark-soft: #1B211B;
-  --ink: #EDE7D8;
-  --ink-soft: #D4CEBD;
-  --muted: #B9B2A0;
-  --on-dark: #EDE7D8;
-  --on-dark-muted: #B3AC99;
-  --accent: #C9AC72;   /* acik zemin tusu ile ayni AA degeri */
-  --accent-bright: #D8BC84;
-  --sage: #8FA58F;
+  --bg: #161B16;            --bg-rgb: 22,27,22;
+  --surface: #1C221C;      --surface-rgb: 28,34,28;
+  --bg-deep: #121612;      --bg-deep-rgb: 18,22,18;
+  --dark: #0F130F;         --dark-rgb: 15,19,15;
+  --dark-soft: #1B211B;    --dark-soft-rgb: 27,33,27;
+  --ink: #EDE7D8;          --ink-rgb: 237,231,216;
+  --ink-soft: #D4CEBD;     --ink-soft-rgb: 212,206,189;
+  --muted: #B9B2A0;        --muted-rgb: 185,178,160;
+  --on-dark: #EDE7D8;      --on-dark-rgb: 237,231,216;
+  --on-dark-muted: #B3AC99; --on-dark-muted-rgb: 179,172,153;
+  --accent: #C9AC72;    /* acik zemin tusu ile ayni AA degeri */  --accent-rgb: 201,172,114;
+  --accent-bright: #D8BC84;  --accent-bright-rgb: 216,188,132;
+  --sage: #8FA58F;     --sage-rgb: 143,165,143;
+  --success: #5ea86a;  --success-rgb: 94,168,106;
+  --error: #b35a52;    --error-rgb: 179,90,82;
   --line: rgba(237, 231, 216, 0.14);
   --line-soft: rgba(237, 231, 216, 0.07);
 }}
