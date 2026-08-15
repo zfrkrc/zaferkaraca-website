@@ -20,7 +20,7 @@
   <meta name="twitter:description" content="{{ self.og_description() }}">
   <script>(function(){var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="{{ url_for('theme_css') }}">
-  <link rel="stylesheet" href="/static/css/style.css?v=26">
+  <link rel="stylesheet" href="/static/css/style.css?v=27">
   <link rel="icon" type="image/png" href="/uploads/logoaq.png">
   {% block json_ld %}{% endblock %}
 </head>
@@ -54,7 +54,7 @@
     <div class="footer-container">
       <div class="footer-brand">
         <a href="{{ url_for('index') }}" class="logo">
-          <span>Zafer KARACA<span class="logo-sub" style="color:rgba(233,227,211,.4)">Hayatı Okuma</span></span>
+          <span>Zafer KARACA<span class="logo-sub" style="color:var(--on-dark-muted)">Hayatı Okuma</span></span>
         </a>
         <p>{{ site_description }}</p>
       </div>
@@ -81,16 +81,15 @@
 
   <!-- Newsletter -->
   <div style="position:fixed;bottom:20px;right:20px;z-index:999">
-    <div id="newsletterToggle" onclick="toggleNewsletter()" style="width:52px;height:52px;border-radius:50%;background:var(--ed-ink);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;box-shadow:0 10px 30px rgba(32,43,34,.18);transition:background .4s var(--ease-editorial, cubic-bezier(.16,1,.3,1))" title="Abone Ol" onmouseover="this.style.background='var(--ed-accent)'" onmouseout="this.style.background='var(--ed-ink)'">✉</div>
-    <div id="newsletterBox" style="display:none;position:absolute;bottom:64px;right:0;width:320px;background:var(--ed-surface);border:1px solid var(--ed-line);padding:var(--space-lg) var(--space-md) var(--space-md);">
-      <div style="font-family:var(--font-display);font-size:1.3rem;color:var(--ed-ink);margin-bottom:2px">Bülten</div>
-      <p style="font-size:0.8rem;color:var(--ed-muted);margin-bottom:var(--space-md);line-height:1.6">Yeni yazılardan haberdar olun. E-postanız asla paylaşılmaz.</p>
+    <div id="newsletterToggle" onclick="toggleNewsletter()" class="float-mail" title="Bülten" aria-label="Bülten" role="button" tabindex="0">✉</div>
+    <div id="newsletterBox" style="display:none;position:absolute;bottom:64px;right:0;width:320px;background:var(--surface);border:1px solid var(--line);padding:var(--space-lg) var(--space-md) var(--space-md);">
+      <div style="font-family:var(--font-display);font-size:1.3rem;color:var(--ink);margin-bottom:2px">Bülten</div>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:var(--space-md);line-height:1.6">Yeni yazılardan haberdar olun. E-postanız asla paylaşılmaz.</p>
       <form action="{{ url_for('subscribe') }}" method="POST" style="display:flex;flex-direction:column;gap:12px">
         <input type="email" name="email" placeholder="E-posta" required
-          style="width:100%;background:transparent;border:none;border-bottom:1px solid var(--ed-line);padding:10px 0;font-size:0.95rem;color:var(--ed-ink);outline:none;font-family:inherit">
+          style="width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);padding:10px 0;font-size:0.95rem;color:var(--ink);outline:none;font-family:inherit">
         <button type="submit"
-          style="width:100%;background:var(--ed-ink);color:#fff;border:none;padding:13px;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background .4s var(--ease-editorial, cubic-bezier(.16,1,.3,1))"
-          onmouseover="this.style.background='var(--ed-accent-deep)'" onmouseout="this.style.background='var(--ed-ink)'">Abone Ol</button>
+          style="width:100%;background:var(--ink);color:var(--bg);border:none;padding:13px;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background .4s var(--ease)">Abone Ol</button>
       </form>
     </div>
   </div>
@@ -101,6 +100,6 @@
     }
   </script>
 
-  <script src="{{ url_for('static', filename='js/main.js', v='26') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js', v='27') }}"></script>
 </body>
 </html>
