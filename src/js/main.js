@@ -133,8 +133,18 @@ window.addEventListener('scroll', () => {
 
   function buildJourneyPath() {
     const w = jsvg.clientWidth, h = jsvg.clientHeight;
-    const x = w * 0.5;
-    const d = `M ${x.toFixed(1)} ${(-h * 0.06).toFixed(1)} L ${x.toFixed(1)} ${(h * 1.06).toFixed(1)}`;
+    const mobile = window.matchMedia('(max-width: 900px)').matches;
+    const pts = mobile
+      ? [[0.26, -0.06], [0.20, 0.16], [0.33, 0.38], [0.20, 0.61], [0.33, 0.84], [0.26, 1.06]]
+      : [[0.50, -0.08], [0.38, 0.19], [0.62, 0.40], [0.38, 0.61], [0.62, 0.82], [0.50, 1.08]];
+    const P = pts.map(p => [p[0] * w, p[1] * h]);
+    let d = `M ${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
+    for (let i = 0; i < P.length - 1; i++) {
+      const p0 = P[Math.max(0, i - 1)], p1 = P[i], p2 = P[i + 1], p3 = P[Math.min(P.length - 1, i + 2)];
+      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+      const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += ` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+    }
     jsvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
     jpath.setAttribute('d', d);
     jlen = jpath.getTotalLength();
