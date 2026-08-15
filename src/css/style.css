@@ -3,77 +3,11 @@
    Editorial redesign — premium · minimal · sophisticated
    ============================================================ */
 
-/* ── FONTS ─────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap');
-
-/* ── DESIGN TOKENS ─────────────────────────────────────── */
-:root {
-  /* COLOR — warm editorial earth palette, brand-derived */
-  --ed-bg:        #F4EFE2;   /* warm off-white (kagit) */
-  --ed-bg-deep:   #EDE6D4;   /* slightly deeper cream */
-  --ed-surface:   #FAF6EC;   /* subtle warm neutral */
-  --ed-ink:       #202B22;   /* deep charcoal-green (mevcut ink) */
-  --ed-ink-soft:  #3A463C;
-  --ed-muted:     #77705F;   /* muted warm gray/brown */
-  --ed-faint:     #A39B87;
-  --ed-line:      rgba(32, 43, 34, 0.14);
-  --ed-line-soft: rgba(32, 43, 34, 0.08);
-  --ed-accent:    #A8894F;   /* brand gold, deepened */
-  --ed-accent-deep: #8A6D3A;
-  --ed-sage:      #6E8171;   /* brand sage */
-  --ed-dark:      #202B22;   /* dark section bg */
-  --ed-dark-soft: #2B372E;
-  --ed-dark-text: #E9E3D3;
-
-  /* TYPOGRAPHY */
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body:    'Inter', -apple-system, sans-serif;
-  --fs-hero:      clamp(3.2rem, 8.5vw, 8.5rem);
-  --fs-hero-slogan: clamp(1.4rem, 3vw, 2.6rem);
-  --fs-h2:        clamp(2rem, 4.5vw, 3.6rem);
-  --fs-h3:        clamp(1.3rem, 2.2vw, 1.7rem);
-  --fs-body:      clamp(0.95rem, 1vw, 1.05rem);
-
-  /* SPACING */
-  --space-xs: .5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: clamp(5rem, 11vw, 10rem);
-  --space-2xl: clamp(7rem, 14vw, 14rem);
-
-  /* LAYOUT */
-  --container: 1320px;
-  --container-narrow: 760px;
-  --gutter: clamp(1.25rem, 4vw, 3rem);
-
-  /* MOTION */
-  --ease-editorial: cubic-bezier(.16, 1, .3, 1);
-  --dur-slow: 900ms;
-  --dur-med: 600ms;
-
-  /* legacy aliases (template uyumluluk) */
-  --gold: var(--ed-accent);
-  --gold-soft: #E3D5B6;
-  --sage: var(--ed-sage);
-  --ink: var(--ed-ink);
-  --ink-2: var(--ed-ink-soft);
-  --paper: var(--ed-bg);
-  --paper-2: var(--ed-surface);
-  --line: rgba(32, 43, 34, 0.14);
-  --muted: var(--ed-muted);
-  --text: var(--ed-ink);
-  --text-mid: var(--ed-ink-soft);
-  --text-muted: var(--ed-muted);
-  --border: rgba(32, 43, 34, 0.14);
-  --radius: 0px;
-  --radius-lg: 0px;
-  --font-heading: var(--font-display);
-  --font-body: var(--font-body);
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-}
+/* DESIGN TOKENS: /theme.css route'u yüklenir (app/main.py theme_css).
+   Tüm renk/ölçü/font kararları bu token'lardan gelir; burada hardcoded
+   renk/px değeri TANIMLANMAZ. Eski :root ve [data-theme=dark] blokları
+   theme.css'e taşındı (ancak base.html'de theme.css style.css'ten önce
+   yüklenir). */
 
 /* ── RESET ─────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -82,6 +16,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
+  font-size: var(--fs-body);          /* --step-0 ≈ 17–18px */
   color: var(--ed-ink);
   background: var(--ed-bg);
   line-height: 1.7;
@@ -95,9 +30,9 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 ::selection { background: rgba(168, 137, 79, .25); }
 
-/* focus */
+/* focus — görünür, AA; asla outline:none */
 :focus-visible {
-  outline: 1px solid var(--ed-accent);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -1078,29 +1013,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ── DARK MODE ─────────────────────────────────────────── */
-[data-theme="dark"] {
-  --ed-bg: #171B17;
-  --ed-bg-deep: #1B201B;
-  --ed-surface: #1E241E;
-  --ed-ink: #E9E3D3;
-  --ed-ink-soft: #C7C1B1;
-  --ed-muted: #999283;
-  --ed-faint: #6E6A5C;
-  --ed-line: rgba(233, 227, 211, 0.14);
-  --ed-line-soft: rgba(233, 227, 211, 0.08);
-  --ed-accent: #C3A46A;
-  --ed-accent-deep: #D8BC84;
-  --ed-dark: #12150F;
-  --ed-dark-soft: #22281F;
-  --ed-dark-text: #E9E3D3;
-}
-[data-theme="dark"] body { background: var(--ed-bg); color: var(--ed-ink); }
-[data-theme="dark"] .nav { background: rgba(23, 27, 23, 0.86); }
+/* [data-theme] token geçişleri theme.css'te tanımlı (app/main.py theme_css).
+   Burada ek dark-mode düzeltmeleri yeni token'larla yapılmalı: */
+[data-theme="dark"] .nav { background: rgba(22, 27, 22, 0.86); }
 [data-theme="dark"] .hero--photo::before {
-  background: linear-gradient(180deg, rgba(23,27,23,0.78) 0%, rgba(23,27,23,0.3) 34%, rgba(23,27,23,0.92) 82%);
+  background: linear-gradient(180deg, rgba(22,27,22,0.78) 0%, rgba(22,27,22,0.3) 34%, rgba(22,27,22,0.92) 82%);
 }
-[data-theme="dark"] .site-footer { background: #12150F; }
-[data-theme="dark"] .footer-bottom a, [data-theme="dark"] .footer-col a { color: rgba(233,227,211,0.75); }
+[data-theme="dark"] .site-footer { background: var(--dark); }
+[data-theme="dark"] .footer-bottom a, [data-theme="dark"] .footer-col a { color: var(--on-dark-muted); }
 
 /* ── RESPONSIVE ────────────────────────────────────────── */
 @media (max-width: 900px) {

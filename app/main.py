@@ -1053,69 +1053,129 @@ def sitemap_xml():
 
 @app.route('/theme.css')
 def theme_css():
-    primary = get_setting('primary_color', '#3d6b4f')
-    secondary = get_setting('secondary_color', '#2d4f3a')
-    bg = get_setting('bg_color', '#ffffff')
-    text = get_setting('text_color', '#333333')
-    font_h = get_setting('font_heading', 'Georgia, serif')
-    font_b = get_setting('font_body', 'sans-serif')
     custom = get_setting('custom_css', '')
-    hero_start = get_setting('hero_color_start', '#1e5631')
-    hero_end = get_setting('hero_color_end', '#74c69d')
-    card_radius = get_setting('card_radius', '14px')
-    card_shadow_map = {'none': 'none', 'sm': '0 2px 10px rgba(0,0,0,.06)', 'md': '0 4px 20px rgba(0,0,0,.10)', 'lg': '0 8px 32px rgba(0,0,0,.15)'}
-    card_shadow = card_shadow_map.get(get_setting('card_shadow', 'sm'), '0 2px 10px rgba(0,0,0,.06)')
-    thumb_color = get_setting('thumb_color', '#2d6a4f')
-    css = f'''/* Zafer Dynamic Theme — premium paper aesthetic */
+    css = f'''/* Zafer KARACA · Hayatı Okuma — design tokens
+   Sukunet > canlilik. Marka paletinin kontrast-dogrulanmis hali.
+   Tum stil kararlari bu custom property'lerden beslenir; style.css harici
+   hardcoded renk/olcu kullanmaz. */
 :root {{
-  --primary: {primary};
-  --secondary: {secondary};
-  --bg: {bg};
-  --text: {text};
-  --font-heading: \{font_h};
-  --font-body: \{font_b};
-  --gold: #b08d57;
-  --gold-soft: #e7d9bc;
-  --ink: #202b22;
-  --ink-2: #39473b;
-  --paper: #f4efe1;
-  --paper-2: #fffdf7;
-  --line: #dcd4bd;
-  --muted: #726f5e;
-  --sage: #74906f;
-  --card-radius: {card_radius};
+  /* COLOR */
+  --bg: #F5F1E6;
+  --surface: #FBF8F0;
+  --bg-deep: #EAE3D2;
+  --dark: #1C2620;
+  --dark-soft: #26332B;
+  --ink: #1C2620;
+  --ink-soft: #37443A;
+  --muted: #5E5748;
+  --on-dark: #EDE7D8;
+  --on-dark-muted: #B3AC99;
+  --accent: #6F5527;         /* metin ve link (AA >= 4.5) */
+  --accent-bright: #A8894F;  /* SADECE dekor: cizgi, ikon, nokta */
+  --sage: #5A6B5E;
+  --line: rgba(28, 38, 32, 0.14);
+  --line-soft: rgba(28, 38, 32, 0.07);
+
+  /* TYPOGRAPHY */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", "Source Sans 3", system-ui, sans-serif;
+  --step--1: clamp(.875rem, .83rem + .2vw, .95rem);
+  --step-0: clamp(1.0625rem, 1rem + .25vw, 1.15rem);
+  --step-1: clamp(1.3rem, 1.15rem + .6vw, 1.6rem);
+  --step-2: clamp(1.75rem, 1.4rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.4rem, 1.7rem + 3vw, 4.5rem);
+  --step-4: clamp(3rem, 1.8rem + 6vw, 7rem);
+
+  /* SPACING */
+  --s1: .5rem;
+  --s2: 1rem;
+  --s3: 1.5rem;
+  --s4: 2.5rem;
+  --s5: 4rem;
+  --s6: 6rem;
+  --s7: 9rem;
+
+  /* LAYOUT */
+  --measure: 64ch;
+  --radius: 2px;
+  --radius-lg: 16px;
+
+  /* MOTION */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur: .6s;
 }}
-body {{ font-family: var(--font-body); color: var(--ink); -webkit-font-smoothing: antialiased; }}
-h1, h2, h3, h4, h5, h6, .logo, .post-title, .hero h1, .hero-content h1 {{ font-family: var(--font-heading); letter-spacing: -.02em; }}
-a {{ color: var(--gold); }}
-.nav {{ background: rgba(244,239,225,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }}
-.nav-link {{ color: var(--ink-2); font-size: 13.5px; font-weight: 500; }}
-.nav-link:hover {{ color: var(--gold); }}
-.hero {{ background: linear-gradient(135deg, var(--gold) 0%, var(--sage) 100%); }}
-.hero h1, .hero p {{ color: #fff; }}
-.hero-content {{ padding: 80px 0; }}
-.tag {{ background: rgba(255,255,255,.15); color: rgba(255,255,255,.85); border: 1px solid rgba(255,255,255,.25); }}
-.tag-active {{ background: #fff; color: var(--ink); }}
-.post-card {{ background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 12px rgba(0,0,0,.04); transition: transform .2s, box-shadow .2s; }}
-.post-card:hover {{ transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.08); border-color: var(--gold); }}
-.post-read {{ color: var(--gold); }}
-.post-thumb {{ background: linear-gradient(135deg, var(--gold-soft), var(--sage)); }}
-.site-footer {{ background: var(--ink); color: #a9a58f; }}
-.btn-newsletter {{ background: var(--gold); }}
-.tag:hover {{ background: rgba(255,255,255,.25); }}
-.nav-links a {{ border-radius: 8px; transition: background .15s; }}
-.nav-links a:hover {{ background: rgba(176,141,87,.08); }}
-.flash {{ border-radius: 10px; }}
-.flash.error {{ background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }}
-.flash.success {{ background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }}
-.flash.info {{ background: var(--gold-soft); color: #6b5220; border: 1px solid var(--gold); }}
-.card {{ background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--card-radius); }}
-.newsletter {{ background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--card-radius); }}
-input, textarea, select {{ font-family: var(--font-body); border: 1px solid var(--line); border-radius: 10px; background: var(--paper-2); padding: 10px 14px; }}
-input:focus, textarea:focus, select:focus {{ outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,141,87,.12); }}
-.search-form input {{ border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.12); color: #fff; }}
-.search-form input::placeholder {{ color: rgba(255,255,255,.5); }}
-.custom_css_placeholder'''
+
+/* ---- DARK MODE (ayni AA esikleri) ---- */
+[data-theme="dark"] {{
+  --bg: #161B16;
+  --surface: #1C221C;
+  --bg-deep: #121612;
+  --dark: #0F130F;
+  --dark-soft: #1B211B;
+  --ink: #EDE7D8;
+  --ink-soft: #D4CEBD;
+  --muted: #B9B2A0;
+  --on-dark: #EDE7D8;
+  --on-dark-muted: #B3AC99;
+  --accent: #C9AC72;   /* acik zemin tusu ile ayni AA degeri */
+  --accent-bright: #D8BC84;
+  --sage: #8FA58F;
+  --line: rgba(237, 231, 216, 0.14);
+  --line-soft: rgba(237, 231, 216, 0.07);
+}}
+
+/* ---- legacy aliases (Jinja template inlinelari + eski style.css)
+   :root ve dark-mode ortak tek blockta; degerler var() ile takip eder. ---- */
+:root, html[data-theme="dark"] {{
+  --primary: var(--accent);
+  --secondary: var(--sage);
+  --text: var(--ink);
+  --font-heading: var(--font-display);
+  --gold: var(--accent-bright);
+  --gold-soft: #E7D9BC;
+  --ink-2: var(--ink-soft);
+  --paper: var(--bg);
+  --paper-2: var(--surface);
+  --border: var(--line);
+
+  /* legacy --ed-* (eski editorial template'ler) */
+  --ed-bg: var(--bg);
+  --ed-bg-deep: var(--bg-deep);
+  --ed-surface: var(--surface);
+  --ed-ink: var(--ink);
+  --ed-ink-soft: var(--ink-soft);
+  --ed-muted: var(--muted);
+  --ed-faint: var(--muted);
+  --ed-line: var(--line);
+  --ed-line-soft: var(--line-soft);
+  --ed-accent: var(--accent);
+  --ed-accent-deep: var(--accent);
+  --ed-accent-bright: var(--accent-bright);
+  --ed-sage: var(--sage);
+  --ed-dark: var(--dark);
+  --ed-dark-soft: var(--dark-soft);
+  --ed-dark-text: var(--on-dark);
+  --fs-hero: var(--step-4);
+  --fs-hero-slogan: var(--step-1);
+  --fs-h2: var(--step-2);
+  --fs-h3: var(--step-1);
+  --fs-body: var(--step-0);
+  --space-xs: var(--s1);
+  --space-sm: var(--s2);
+  --space-md: var(--s3);
+  --space-lg: var(--s4);
+  --space-xl: var(--s5);
+  --space-2xl: var(--s6);
+  --container: 1320px;
+  --container-narrow: 760px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --ease-editorial: var(--ease);
+  --dur-slow: 900ms;
+  --dur-med: var(--dur);
+}}
+
+/* ---- admin ozel css (custom_css) ---- */
+{custom}'''
     return Response(css, mimetype='text/css')
 
 @app.route('/static/<path:path>')
