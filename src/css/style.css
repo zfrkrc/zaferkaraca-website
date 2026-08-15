@@ -1222,8 +1222,6 @@ body.anim .progress-label { display: block; position: absolute; left: 6vw; botto
   .jtext .num { font-size: 11px; margin-bottom: 4px; }
 }
 
-body.anim .reveal { opacity: 0; }
-
 /* ── DARK MODE ─────────────────────────────────────────── */
 [data-theme="dark"] .nav { background: var(--dark-soft); }
 [data-theme="dark"] .hero--photo::before {
