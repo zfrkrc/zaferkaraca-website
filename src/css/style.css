@@ -240,7 +240,7 @@ button { font-family: inherit; cursor: pointer; }
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding: clamp(4rem, 10vh, 8rem) var(--gutter) calc(var(--space-lg) + 2rem);
+  padding: clamp(2rem, 5vh, 4rem) var(--gutter) clamp(2rem, 5vh, 4rem);
 }
 .hero__inner {
   max-width: var(--container);
