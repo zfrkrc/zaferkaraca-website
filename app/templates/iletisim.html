@@ -32,6 +32,38 @@
         <input type="email" id="c-email" name="email" placeholder="ornek@mail.com" required>
       </div>
       <div>
+        <label for="c-phone">Telefon</label>
+        <input type="tel" id="c-phone" name="phone" placeholder="(5xx) xxx xx xx">
+      </div>
+      <div>
+        <label for="c-company">Firma</label>
+        <input type="text" id="c-company" name="company" placeholder="Firma adı (varsa)">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)">
+        <div>
+          <label for="c-product">İlgilendiğiniz Hizmet</label>
+          <select id="c-product" name="interested_product" style="width:100%;padding:0.65rem;border:1px solid var(--ed-border);border-radius:6px;background:var(--ed-surface);color:var(--ed-text);font-size:0.85rem">
+            <option value="">Seçiniz (opsiyonel)</option>
+            <option value="website">Web Sitesi</option>
+            <option value="recruit">CV &amp; İşe Alım</option>
+            <option value="social">Sosyal Medya</option>
+            <option value="marketing">Pazarlama</option>
+            <option value="cafe">Cafe Yönetimi</option>
+            <option value="healthcare">Hasta Takip</option>
+          </select>
+        </div>
+        <div>
+          <label for="c-tier">Paket Seviyesi</label>
+          <select id="c-tier" name="interested_tier" style="width:100%;padding:0.65rem;border:1px solid var(--ed-border);border-radius:6px;background:var(--ed-surface);color:var(--ed-text);font-size:0.85rem">
+            <option value="">Seçiniz (opsiyonel)</option>
+            <option value="STANDARD">Standart</option>
+            <option value="AI">AI Destekli</option>
+            <option value="FULL_AI">Tam AI</option>
+            <option value="AI_PRO">AI Pro</option>
+          </select>
+        </div>
+      </div>
+      <div>
         <label for="c-msg">Mesajınız / Görüşleriniz</label>
         <textarea id="c-msg" name="message" rows="4" placeholder="Bize iletmek istediğiniz düşünce, görüş veya sorularınızı yazabilirsiniz..."></textarea>
       </div>

@@ -62,6 +62,31 @@ login_manager.login_view = 'admin_login'
 
 md = markdown.Markdown(extensions=['extra', 'codehilite'])
 
+INSIGHTMAP_LEADS_URL = "http://172.16.16.215:8000/api/public/leads"
+
+def _forward_to_insightmap(form):
+    """Fire-and-forget: zaferkaraca.net Teklif Al → InsightMap lead. Başarısız olursa sessiz log."""
+    try:
+        payload = {
+            "name": (form.get("name") or "").strip(),
+            "email": (form.get("email") or "").strip(),
+            "phone": (form.get("phone") or "").strip(),
+            "company": (form.get("company") or "").strip(),
+            "message": (form.get("message") or "").strip(),
+            "interested_product": (form.get("interested_product") or "").strip(),
+            "interested_tier": (form.get("interested_tier") or "").strip(),
+            "source": "zaferkaraca.net",
+        }
+        if not payload["email"] or "@" not in payload["email"]:
+            return
+        r = httpx.post(INSIGHTMAP_LEADS_URL, json=payload, timeout=8)
+        if r.status_code != 200:
+            app.logger.warning(f"InsightMap lead forward HTTP {r.status_code}")
+        else:
+            app.logger.info(f"InsightMap lead: {payload['email']}")
+    except Exception as e:
+        app.logger.warning(f"InsightMap lead forward failed: {e}")
+
 DEFAULT_FONTS = [
     ('sans-serif', 'Sistem Varsayılan (sans-serif)'),
     ('serif', 'Serif'),
@@ -285,6 +310,8 @@ def iletisim():
             flash('Bu e-posta zaten kayıtlı. Mesajınız iletildi.', 'success')
         else:
             flash('Mesajınız iletildi! En kısa sürede dönüş yapacağız.', 'success')
+        # Fire-and-forget: InsightMap lead (public endpoint, başarısız olursa ziyaretçiye hata dönmez)
+        _forward_to_insightmap(request.form)
         return redirect(url_for('iletisim'))
     return render_template('iletisim.html')
 
